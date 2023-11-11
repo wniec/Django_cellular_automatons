@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="{% static 'styles.css' %}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="{% static 'rulesGetter.js' %}"></script>
+    <script>
+        function post(){
+        const rulesList = getRules();
+        const maxVal = getMaxVal()
+    const data = {
+        "rulesList": rulesList,
+        "maxVal": maxVal
+    };
+    let post = new XMLHttpRequest();
+    post.open("POST", "{% url 'main' %}", true);
+    post.setRequestHeader('Content-Type', 'application/json');
+    post.send(JSON.stringify(data));
+    }
+    </script>
+</head>
+<body>
+<h1>Hello World!</h1>
+<p>Welcome to my automatons project!</p>
+<form method="post">
+<table>
+  <tr>
+    <th>Born</th>
+    <th>Survive</th>
+    <th>Grow</th>
+  </tr>
+    {% for y in rows %}
+    <tr>
+        {% for x in cols %}
+        <td><input type="checkbox" id="1" class="1" name="1" ><label for="1">{{y}}</label><br></td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+    <label for="maxVal">Maximum Growth:</label><br>
+    <input type="text" id="maxVal" required="required" pattern="\d+">
+</form>
+<button onclick="post()" id = "submitBtn" type="button" name ="SetRules">Set Rules</button>
+<a href ="automaton" class="button">start an automaton</a>
+</body>
+</html>

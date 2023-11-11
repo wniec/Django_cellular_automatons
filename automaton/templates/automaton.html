@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="{% static 'styles.css' %}">
+<head>
+    <script type = "text/javascript">
+        const rulesList = JSON.parse('{{ rulesList|escapejs }}')
+        const maxVal = JSON.parse('{{ maxVal|escapejs }}')
+        console.log(typeof(rulesList))
+        console.log(typeof(maxVal))
+    </script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="{% static 'main.js' %}"></script>
+    <script  type = "text/javascript">
+    </script>
+</head>
+<body>
+<canvas id="myCanvas" width="1500" height="700" style="border:1px solid #000000;">a</canvas>
+<script  type = "text/javascript">
+    console.log("==========")
+    console.log(rulesList)
+    console.log("==========")
+    born = new Set([]);
+    survive = new Set([]);
+    grow = new Set([]);
+    for(let i = 0; i<rulesList.length;i++){
+        console.log(rulesList[i])
+        const col = rulesList[i][0]
+        const row = rulesList[i][1]
+        switch (col){
+            case 0:
+                born.add(row)
+                break;
+            case 1:
+                survive.add(row)
+                break;
+            case 2:
+                grow.add(row)
+                break;
+        }
+    }
+    board.rules=new Rules(born,survive,grow,maxVal)
+    board.draw()
+</script>
+<button onclick="board.run()">Run</button>
+<button onclick="board.stop()">Stop</button>
+</body>
+</html>
